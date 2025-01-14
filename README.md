@@ -15,6 +15,11 @@ Um jogo online simples que pode ser jogado tanto em modo single player quanto mu
 - ← ou A: Mover para a esquerda
 - → ou D: Mover para a direita
 
+## Jogue Online
+
+Você pode jogar o jogo diretamente no navegador através do link:
+https://joao2666.github.io/jogo-online/
+
 ## Instalação
 
 1. Clone este repositório
