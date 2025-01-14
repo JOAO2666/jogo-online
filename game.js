@@ -158,22 +158,69 @@ class Coin extends Sprite {
     }
 }
 
+// Definição dos níveis
+const LEVELS = [
+    {   // Nível 1 - Básico
+        platforms: [
+            { x: 0, y: 500, width: 800 },
+            { x: 300, y: 400, width: 200 },
+            { x: 100, y: 300, width: 200 },
+            { x: 500, y: 200, width: 200 }
+        ],
+        coins: [
+            { x: 350, y: 350 },
+            { x: 150, y: 250 },
+            { x: 550, y: 150 }
+        ],
+        playerStart: { x: 100, y: 300 }
+    },
+    {   // Nível 2 - Intermediário
+        platforms: [
+            { x: 0, y: 500, width: 200 },
+            { x: 300, y: 500, width: 200 },
+            { x: 600, y: 500, width: 200 },
+            { x: 150, y: 400, width: 100 },
+            { x: 400, y: 300, width: 100 },
+            { x: 200, y: 200, width: 100 },
+            { x: 500, y: 150, width: 100 }
+        ],
+        coins: [
+            { x: 150, y: 350 },
+            { x: 400, y: 250 },
+            { x: 200, y: 150 },
+            { x: 500, y: 100 }
+        ],
+        playerStart: { x: 50, y: 400 }
+    },
+    {   // Nível 3 - Avançado
+        platforms: [
+            { x: 0, y: 550, width: 150 },
+            { x: 200, y: 500, width: 100 },
+            { x: 350, y: 450, width: 100 },
+            { x: 500, y: 400, width: 100 },
+            { x: 650, y: 350, width: 150 },
+            { x: 500, y: 300, width: 100 },
+            { x: 350, y: 250, width: 100 },
+            { x: 200, y: 200, width: 100 },
+            { x: 50, y: 150, width: 100 }
+        ],
+        coins: [
+            { x: 220, y: 450 },
+            { x: 370, y: 400 },
+            { x: 520, y: 350 },
+            { x: 670, y: 300 },
+            { x: 520, y: 250 }
+        ],
+        playerStart: { x: 50, y: 500 }
+    }
+];
+
 class Game {
     constructor() {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
-        this.player = new Player(100, 300);
-        this.platforms = [
-            new Platform(0, 500, 800),  // Base
-            new Platform(300, 400, 200), // Plataforma flutuante
-            new Platform(100, 300, 200), // Plataforma flutuante
-            new Platform(500, 200, 200)  // Plataforma flutuante
-        ];
-        this.coins = [
-            new Coin(350, 350),
-            new Coin(150, 250),
-            new Coin(550, 150)
-        ];
+        this.currentLevel = 0;
+        this.loadLevel(this.currentLevel);
         this.keys = {};
         this.isMultiplayer = false;
         this.menu = document.getElementById('menu');
@@ -254,6 +301,67 @@ class Game {
         }
     }
 
+    loadLevel(levelIndex) {
+        const level = LEVELS[levelIndex];
+        this.player = new Player(level.playerStart.x, level.playerStart.y);
+        this.platforms = level.platforms.map(p => new Platform(p.x, p.y, p.width));
+        this.coins = level.coins.map(c => new Coin(c.x, c.y));
+        
+        // Atualiza o HUD com informações do nível
+        const levelDisplay = document.getElementById('level');
+        if (levelDisplay) {
+            levelDisplay.textContent = (levelIndex + 1);
+        }
+    }
+
+    checkLevelComplete() {
+        if (this.coins.every(coin => coin.collected)) {
+            if (this.currentLevel < LEVELS.length - 1) {
+                // Próximo nível
+                this.currentLevel++;
+                this.loadLevel(this.currentLevel);
+                
+                // Efeito de transição
+                const levelCompleteText = document.createElement('div');
+                levelCompleteText.style.position = 'absolute';
+                levelCompleteText.style.top = '50%';
+                levelCompleteText.style.left = '50%';
+                levelCompleteText.style.transform = 'translate(-50%, -50%)';
+                levelCompleteText.style.color = 'white';
+                levelCompleteText.style.fontSize = '32px';
+                levelCompleteText.style.textShadow = '2px 2px 4px rgba(0,0,0,0.5)';
+                levelCompleteText.textContent = `Nível ${this.currentLevel} Completo!`;
+                this.canvas.parentElement.appendChild(levelCompleteText);
+                
+                setTimeout(() => {
+                    levelCompleteText.remove();
+                }, 2000);
+            } else {
+                // Jogo completo
+                this.showGameComplete();
+            }
+        }
+    }
+
+    showGameComplete() {
+        const gameComplete = document.createElement('div');
+        gameComplete.style.position = 'absolute';
+        gameComplete.style.top = '50%';
+        gameComplete.style.left = '50%';
+        gameComplete.style.transform = 'translate(-50%, -50%)';
+        gameComplete.style.background = 'rgba(0,0,0,0.8)';
+        gameComplete.style.padding = '20px';
+        gameComplete.style.borderRadius = '10px';
+        gameComplete.style.color = 'white';
+        gameComplete.style.textAlign = 'center';
+        gameComplete.innerHTML = `
+            <h2>Parabéns!</h2>
+            <p>Você completou todos os níveis!</p>
+            <button class="button" onclick="location.reload()">Jogar Novamente</button>
+        `;
+        this.canvas.parentElement.appendChild(gameComplete);
+    }
+
     checkCollisions() {
         // Coleta de moedas
         this.coins.forEach(coin => {
@@ -272,6 +380,7 @@ class Game {
                 }
             }
         });
+        this.checkLevelComplete();
     }
 
     draw() {
@@ -297,6 +406,12 @@ class Game {
         });
         this.drawParticles();
         this.player.draw(this.ctx);
+        
+        // Adiciona informação do nível atual
+        this.ctx.fillStyle = 'white';
+        this.ctx.font = '20px Arial';
+        this.ctx.textAlign = 'right';
+        this.ctx.fillText(`Nível: ${this.currentLevel + 1}/${LEVELS.length}`, this.canvas.width - 20, 30);
     }
 
     gameLoop() {

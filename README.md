@@ -25,6 +25,14 @@ Um jogo de plataforma 2D com física realista, animações e efeitos visuais. Co
 - Explore o mapa usando as plataformas
 - Tente conseguir a maior pontuação!
 
+### Níveis
+O jogo possui 3 níveis diferentes:
+- **Nível 1**: Nível básico para aprender os controles
+- **Nível 2**: Plataformas mais desafiadoras e mais moedas para coletar
+- **Nível 3**: Layout complexo com plataformas em diferentes alturas
+
+Para avançar de nível, colete todas as moedas do nível atual!
+
 ## Jogue Online
 
 Você pode jogar o jogo diretamente no navegador através do link:
