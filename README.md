@@ -1,33 +1,48 @@
-# Jogo Online Multiplayer
+# Aventura na Floresta
 
-Um jogo online simples que pode ser jogado tanto em modo single player quanto multiplayer.
+Um jogo de plataforma 2D com física realista, animações e efeitos visuais. Colete moedas, pule entre plataformas e desafie seus amigos no modo multiplayer!
+
+## Características
+
+- Física realista com gravidade e colisões
+- Sistema de duplo pulo
+- Efeitos visuais de partículas
+- Efeitos sonoros
+- Animações suaves
+- Modo single player e multiplayer
+- Sistema de pontuação com coleta de moedas
+- Interface moderna e responsiva
 
 ## Como Jogar
 
-- Use as setas do teclado ou WASD para mover seu personagem
-- Colete as moedas douradas para aumentar sua pontuação
-- Jogue sozinho no modo Single Player ou com amigos no modo Multiplayer
+### Controles
+- `W` ou `↑`: Pular (pressione duas vezes para duplo pulo)
+- `A` ou `←`: Mover para a esquerda
+- `D` ou `→`: Mover para a direita
 
-## Controles
-
-- ↑ ou W: Mover para cima
-- ↓ ou S: Mover para baixo
-- ← ou A: Mover para a esquerda
-- → ou D: Mover para a direita
+### Objetivo
+- Colete o máximo de moedas possível
+- Explore o mapa usando as plataformas
+- Tente conseguir a maior pontuação!
 
 ## Jogue Online
 
 Você pode jogar o jogo diretamente no navegador através do link:
 https://joao2666.github.io/jogo-online/
 
-## Instalação
-
-1. Clone este repositório
-2. Abra o arquivo `index.html` em seu navegador
-3. Escolha o modo de jogo desejado e divirta-se!
-
 ## Tecnologias Utilizadas
 
-- HTML5 Canvas
-- JavaScript
-- CSS3
+- HTML5 Canvas para renderização
+- JavaScript ES6+ para lógica do jogo
+- CSS3 para estilização
+- Howler.js para efeitos sonoros
+
+## Instalação Local
+
+1. Clone este repositório
+```bash
+git clone https://github.com/JOAO2666/jogo-online.git
+```
+
+2. Abra o arquivo `index.html` em seu navegador
+3. Escolha o modo de jogo e divirta-se!

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo Online Multiplayer</title>
+    <title>Aventura na Floresta</title>
     <style>
         body {
             margin: 0;
@@ -11,51 +11,79 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #333;
-            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
         }
         #gameContainer {
             position: relative;
         }
         canvas {
-            border: 2px solid white;
-            background-color: #000;
+            border: 3px solid #34495e;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            background-color: #87CEEB;
         }
         #menu {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
+            background-color: rgba(44, 62, 80, 0.95);
+            padding: 30px;
+            border-radius: 15px;
             text-align: center;
             color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
         }
-        button {
-            padding: 10px 20px;
-            margin: 5px;
-            font-size: 16px;
+        .button {
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 18px;
             cursor: pointer;
-            background-color: #4CAF50;
+            background-color: #2ecc71;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
-        button:hover {
-            background-color: #45a049;
+        .button:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+        }
+        #hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 20px;
+            text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            display: none;
         }
     </style>
 </head>
 <body>
     <div id="gameContainer">
         <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div id="menu">
-            <h2>Jogo Online</h2>
-            <button id="singlePlayerBtn">Modo Single Player</button>
-            <button id="multiPlayerBtn">Modo Multiplayer</button>
+        <div id="hud">
+            <div>Vida: <span id="health">100</span></div>
+            <div>Moedas: <span id="coins">0</span></div>
         </div>
+        <div id="menu">
+            <h1>Aventura na Floresta</h1>
+            <button class="button" id="singlePlayerBtn">Modo Single Player</button>
+            <button class="button" id="multiPlayerBtn">Modo Multiplayer</button>
+        </div>
+        <div id="loading">Carregando...</div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
